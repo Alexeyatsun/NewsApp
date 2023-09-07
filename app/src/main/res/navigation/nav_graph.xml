@@ -7,17 +7,17 @@
     <fragment
         android:id="@+id/rootFragment"
         android:name="com.example.gonews.presentation.RootFragment"
-        android:label="fragment_root"
-        tools:layout="@layout/fragment_root" >
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_root">
         <action
             android:id="@+id/action_rootFragment_to_fullNewsFragment"
             app:destination="@id/fullNewsFragment" />
     </fragment>
     <fragment
         android:id="@+id/fullNewsFragment"
+        android:label=""
         android:name="com.example.gonews.presentation.FullNewsFragment"
-        android:label="fragment_full_news"
-        tools:layout="@layout/fragment_full_news" >
+        tools:layout="@layout/fragment_full_news">
         <argument
             android:name="newsArgs"
             app:argType="com.example.gonews.model.news.Article" />

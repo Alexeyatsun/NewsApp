@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo.IME_ACTION_DONE
+import android.view.inputmethod.EditorInfo.IME_ACTION_SEND
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -15,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class RootFragment  : Fragment() {
+class RootFragment : Fragment() {
 
     private val viewModel by viewModels<NewsViewModel>()
 
@@ -28,7 +30,7 @@ class RootFragment  : Fragment() {
 
         val listener = object : OnItemClickListener {
             override fun onItemClick(article: Article?) {
-                if(article?.title!=null){
+                if (article?.title != null) {
                     bundle.putParcelable("newsArgs", article)
                     findNavController().navigate(
                         R.id.action_rootFragment_to_fullNewsFragment,
@@ -37,6 +39,7 @@ class RootFragment  : Fragment() {
                 }
             }
         }
+
         val adapter = UnsplashNewsAdapter(listener)
 
         binding.apply {
@@ -48,9 +51,24 @@ class RootFragment  : Fragment() {
             adapter.submitData(viewLifecycleOwner.lifecycle, it)
         }
 
-        binding.btnSearch.setOnClickListener {
-            viewModel.searchNews(binding.editTextText.text.toString())
-        }
+        buttonPressInitialization(binding)
+
         return binding.root
+    }
+
+    private fun buttonPressInitialization(binding: FragmentRootBinding) {
+
+        binding.apply {
+            btnSearch.setOnClickListener {
+                viewModel.searchNews(binding.editTextText.text.toString())
+            }
+            editTextText.setOnEditorActionListener { _, actionId, _ ->
+                if (actionId == IME_ACTION_DONE || actionId == IME_ACTION_SEND) {
+                    viewModel.searchNews(binding.editTextText.text.toString())
+                    return@setOnEditorActionListener true
+                }
+                false
+            }
+        }
     }
 }

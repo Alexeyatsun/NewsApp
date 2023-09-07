@@ -6,20 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".presentation.RootFragment">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.08" />
-
     <EditText
         android:id="@+id/editTextText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:gravity="left"
         android:ems="10"
+        android:gravity="left"
+        android:imeOptions="actionSend"
         android:inputType="text"
         android:text=""
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
@@ -43,7 +37,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline7">
+        app:layout_constraintTop_toBottomOf="@+id/editTextText">
 
 
         <androidx.recyclerview.widget.RecyclerView
